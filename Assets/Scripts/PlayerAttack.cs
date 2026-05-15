@@ -6,16 +6,20 @@ public class PlayerAttack : MonoBehaviour
 {
 
     [SerializeField] private GameObject Attack;
-    [SerializeField] private Transform Origin;
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject SecondaryAttack;
 
-    
+    [SerializeField] private Transform Origin;
+
+
     public void OnAttack()
     {
-        InitAttack();
+        InitAttack(Attack);
+    }
+
+
+    public void OnSecondaryAttack()
+    {
+        InitAttack(SecondaryAttack);
     }
 
 
@@ -28,9 +32,9 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    private void InitAttack()
+    private void InitAttack(GameObject AttackType)
     {
-        GameObject HurtBoxObj = Instantiate(Attack, Vector3.zero, Quaternion.identity, Origin);
+        GameObject HurtBoxObj = Instantiate(AttackType, Vector3.zero, Origin.rotation, Origin);
         HitboxParameters(HurtBoxObj);
     }
     
