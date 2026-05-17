@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 279633354}
   - component: {fileID: 279633353}
   - component: {fileID: 279633352}
+  - component: {fileID: 279633358}
   m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
@@ -571,7 +572,7 @@ MonoBehaviour:
     - Attack
     triggerKey: 9
   fractureOptions:
-    fragmentCount: 100
+    fragmentCount: 1000
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -582,8 +583,8 @@ MonoBehaviour:
     textureOffset: {x: 0, y: 0}
   refractureOptions:
     enableRefracturing: 1
-    maxRefractureCount: 1
-    invokeCallbacks: 0
+    maxRefractureCount: 3
+    invokeCallbacks: 1
   callbackOptions:
     onFracture:
       m_PersistentCalls:
@@ -592,8 +593,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-          m_MethodName: Play
+          m_TargetAssemblyTypeName: FractureOptimizer, Assembly-CSharp
+          m_MethodName: OnFractureCompleted
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -724,6 +725,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279633358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279633351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402cf2d0c1de32746b034511f9a787e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FractureOptimizer
 --- !u!1 &302264812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1395,7 @@ GameObject:
   - component: {fileID: 534760934}
   - component: {fileID: 534760933}
   - component: {fileID: 534760939}
+  - component: {fileID: 534760940}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -1577,6 +1591,18 @@ MonoBehaviour:
   explosionForce: 5
   explosionRadius: 2
   upwardModifier: 0.5
+--- !u!114 &534760940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534760932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402cf2d0c1de32746b034511f9a787e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &545879967
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,6 +2306,7 @@ GameObject:
   - component: {fileID: 954913622}
   - component: {fileID: 954913621}
   - component: {fileID: 954913620}
+  - component: {fileID: 954913627}
   m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -2434,6 +2461,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &954913627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954913619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d293779292e0f4d86a771676a9bd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  SizeTreshold: 1000
 --- !u!1 &1194557240
 GameObject:
   m_ObjectHideFlags: 0
