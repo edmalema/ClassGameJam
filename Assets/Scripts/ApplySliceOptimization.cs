@@ -5,7 +5,11 @@ public class ApplySliceOptimization : MonoBehaviour
     private Renderer OriginRenderer;
     private Slice slice;
     private float OriginVolume;
-    [SerializeField] private float SizeTreshold;
+    [SerializeField] private float LowerSizeTreshold;
+    [SerializeField] private float UpperSizeTreshold;
+    [SerializeField] private float FractureValue;
+
+
     void Awake()
     {
         slice = GetComponent<Slice>();
@@ -22,7 +26,9 @@ public class ApplySliceOptimization : MonoBehaviour
         GameObject FractureContainer = GameObject.Find(gameObject.name + "Slices");
         FractureContainer.AddComponent<SliceOptimizer>();
         FractureContainer.GetComponent<SliceOptimizer>().OriginVolume = OriginVolume;
-        FractureContainer.GetComponent<SliceOptimizer>().SizeTreshold = SizeTreshold;
+        FractureContainer.GetComponent<SliceOptimizer>().LowerSizeTreshold = LowerSizeTreshold;
+        FractureContainer.GetComponent<SliceOptimizer>().UpperSizeTreshold = UpperSizeTreshold;
+
 
     }
 }

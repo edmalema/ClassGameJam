@@ -46,6 +46,8 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private bool Jump;
 
+    public bool CameraActive = true;
+
     void Awake()
     {
         if (instance == null)
@@ -70,7 +72,10 @@ public class Movement : MonoBehaviour
     {
         if (AllowedToMove)
         {
-            UpdateMouse();
+            if (CameraActive)
+            {
+                UpdateMouse();
+            }
             UpdateMove();
         }
 

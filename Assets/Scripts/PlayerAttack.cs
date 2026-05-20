@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
 
-    [SerializeField] private GameObject Attack;
-    [SerializeField] private GameObject SecondaryAttack;
+    public GameObject Attack;
+    public GameObject SecondaryAttack;
 
     [SerializeField] private Transform Origin;
 

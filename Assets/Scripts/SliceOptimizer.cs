@@ -6,7 +6,9 @@ public class SliceOptimizer : MonoBehaviour
 
     private int ChildCount = 0;
 
-    public float SizeTreshold;
+    public float LowerSizeTreshold;
+    public float UpperSizeTreshold;
+    public float FractureValue;
 
     private bool Changed = false;
 
@@ -36,14 +38,17 @@ public class SliceOptimizer : MonoBehaviour
             float volume = size.x * size.y * size.z;
             Debug.Log(volume);
 
-            if (volume <= OriginVolume / SizeTreshold || !rend.gameObject.activeInHierarchy)
+            if (volume <= OriginVolume / LowerSizeTreshold || !rend.gameObject.activeInHierarchy)
             {
                 Destroy(rend.gameObject);
             }
 
-            rend.gameObject.AddComponent<DeleteFracture>();
-            rend.gameObject.GetComponent<DeleteFracture>().Delay = new WaitForSeconds(UnityEngine.Random.Range(20f, 30.0f));
-
+            if (volume <= OriginVolume / UpperSizeTreshold)
+            {
+                rend.gameObject.AddComponent<DeleteFracture>();
+                rend.gameObject.GetComponent<DeleteFracture>().FractureValue = FractureValue;
+                rend.gameObject.GetComponent<DeleteFracture>().Delay = new WaitForSeconds(UnityEngine.Random.Range(20f, 30.0f));
+            }
         }
     }
 }
