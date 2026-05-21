@@ -1,33 +1,51 @@
-using System.Collections;
 using UnityEngine;
 
 public class FractureOptimizer : MonoBehaviour
 {
+    public float OriginVolume;
 
-    private Fracture fracture;
+    private int ChildCount = 0;
 
-    void Awake()
+    public float LowerSizeTreshold;
+    public float UpperSizeTreshold;
+    public float FractureValue;
+    public bool FractureMode;
+    private bool Changed = false;
+
+    private void Update()
     {
-        fracture = GetComponent<Fracture>();
-        // Apply force once fragments exist
-        fracture.callbackOptions.onCompleted.AddListener(OnFractureCompleted);
-    }
-
-
-
-    void OnFractureCompleted()
-    {
-        GameObject FractureContainer = GameObject.Find(gameObject.name + "Fragments");
-        Renderer[] FractureChildren = FractureContainer.GetComponentsInChildren<Renderer>();
-        // Fragments are children of the fractured object's parent
-        // OpenFracture instantiates them in the scene — find them by tag or name
-        foreach (var rend in FractureChildren)
+        Renderer[] ChildrenRenderer = GetComponentsInChildren<Renderer>(true);
+        if (Changed)
         {
-            rend.gameObject.AddComponent<DeleteFracture>();
-            rend.gameObject.GetComponent<DeleteFracture>().Delay = new WaitForSeconds(UnityEngine.Random.Range(20f, 30.0f));
+            ChildCount = ChildrenRenderer.Length;
+            OnSliceCompleted(ChildrenRenderer);
+            Changed = false;
+        }
 
+        if (ChildrenRenderer.Length > ChildCount)
+        {
+            Changed = true;
         }
     }
 
+    void OnSliceCompleted(Renderer[] ChildrenRenderer)
+    {
+        foreach (var rend in ChildrenRenderer)
+        {
+            Vector3 size = rend.bounds.size;
+            float volume = size.x * size.y * size.z;
 
+            if (volume <= OriginVolume / LowerSizeTreshold || !rend.gameObject.activeInHierarchy)
+            {
+                Destroy(rend.gameObject);
+            }
+
+            if (volume <= OriginVolume / UpperSizeTreshold)
+            {
+                rend.gameObject.AddComponent<DeleteFracture>();
+                rend.gameObject.GetComponent<DeleteFracture>().FractureValue = FractureValue;
+                rend.gameObject.GetComponent<DeleteFracture>().Delay = new WaitForSeconds(UnityEngine.Random.Range(20f, 30.0f));
+            }
+        }
+    }
 }

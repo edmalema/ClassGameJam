@@ -4,31 +4,52 @@ public class ApplySliceOptimization : MonoBehaviour
 {
     private Renderer OriginRenderer;
     private Slice slice;
+    private Fracture fracture;
+
     private float OriginVolume;
     [SerializeField] private float LowerSizeTreshold;
     [SerializeField] private float UpperSizeTreshold;
     [SerializeField] private float FractureValue;
-
+    [SerializeField] private bool FractureMode;
 
     void Awake()
     {
-        slice = GetComponent<Slice>();
-        OriginRenderer = GetComponent<Renderer>();
-        Vector3 OriginSize = OriginRenderer.bounds.size;
-        OriginVolume = OriginSize.x * OriginSize.y * OriginSize.z;
-        Debug.Log(OriginVolume);
-        // Apply force once fragments exist
-        slice.callbackOptions.onCompleted.AddListener(OnFractureCompleted);
+        if (FractureMode)
+        {
+            fracture = GetComponent<Fracture>();
+            OriginRenderer = GetComponent<Renderer>();
+            Vector3 OriginSize = OriginRenderer.bounds.size;
+            OriginVolume = OriginSize.x * OriginSize.y * OriginSize.z;
+            fracture.callbackOptions.onCompleted.AddListener(OnFractureCompleted);
+        }
+        else
+        {
+            slice = GetComponent<Slice>();
+            OriginRenderer = GetComponent<Renderer>();
+            Vector3 OriginSize = OriginRenderer.bounds.size;
+            OriginVolume = OriginSize.x * OriginSize.y * OriginSize.z;
+            slice.callbackOptions.onCompleted.AddListener(OnSliceCompleted);
+        }
+        
     }
 
     void OnFractureCompleted()
     {
+        GameObject FractureContainer = GameObject.Find(gameObject.name + "Fragments");
+        FractureContainer.AddComponent<FractureOptimizer>();
+        FractureContainer.GetComponent<FractureOptimizer>().OriginVolume = OriginVolume;
+        FractureContainer.GetComponent<FractureOptimizer>().LowerSizeTreshold = LowerSizeTreshold;
+        FractureContainer.GetComponent<FractureOptimizer>().UpperSizeTreshold = UpperSizeTreshold;
+        FractureContainer.GetComponent<FractureOptimizer>().FractureValue = FractureValue;
+    }
+
+    void OnSliceCompleted()
+    {
         GameObject FractureContainer = GameObject.Find(gameObject.name + "Slices");
-        FractureContainer.AddComponent<SliceOptimizer>();
-        FractureContainer.GetComponent<SliceOptimizer>().OriginVolume = OriginVolume;
-        FractureContainer.GetComponent<SliceOptimizer>().LowerSizeTreshold = LowerSizeTreshold;
-        FractureContainer.GetComponent<SliceOptimizer>().UpperSizeTreshold = UpperSizeTreshold;
-
-
+        FractureContainer.AddComponent<FractureOptimizer>();
+        FractureContainer.GetComponent<FractureOptimizer>().OriginVolume = OriginVolume;
+        FractureContainer.GetComponent<FractureOptimizer>().LowerSizeTreshold = LowerSizeTreshold;
+        FractureContainer.GetComponent<FractureOptimizer>().UpperSizeTreshold = UpperSizeTreshold;
+        FractureContainer.GetComponent<FractureOptimizer>().FractureValue = FractureValue;
     }
 }

@@ -14,7 +14,6 @@ public class DeleteFracture : MonoBehaviour
     IEnumerator DeleteFractureAfterTime()
     {
         yield return Delay;
-
         ShopScript.instance.AssetValues += FractureValue;
         ShopScript.instance.AssetCount += 1;
 

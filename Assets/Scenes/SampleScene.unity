@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 144283332}
   - component: {fileID: 144283331}
   - component: {fileID: 144283330}
+  - component: {fileID: 144283336}
   m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -265,7 +266,7 @@ MonoBehaviour:
     - Attack
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 50
+    fragmentCount: 1000
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -371,7 +372,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2a823ca71fab1da42845a4210d72cc02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -412,12 +413,28 @@ Transform:
   m_GameObject: {fileID: 144283329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.1, y: 8.71, z: 10.7}
-  m_LocalScale: {x: 16.818, y: 16.818, z: 16.818}
+  m_LocalPosition: {x: 3.93, y: 219.03, z: 15.77}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &144283336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144283329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d293779292e0f4d86a771676a9bd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ApplySliceOptimization
+  LowerSizeTreshold: 300
+  UpperSizeTreshold: 20
+  FractureValue: 43
+  FractureMode: 1
 --- !u!1 &263012503
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,9 +752,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 279633351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402cf2d0c1de32746b034511f9a787e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 72d293779292e0f4d86a771676a9bd23, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FractureOptimizer
+  m_EditorClassIdentifier: Assembly-CSharp::ApplySliceOptimization
+  LowerSizeTreshold: 300
+  UpperSizeTreshold: 20
+  FractureValue: 10
+  FractureMode: 1
 --- !u!1 &302264812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,6 +1637,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402cf2d0c1de32746b034511f9a787e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  OriginVolume: 0
+  LowerSizeTreshold: 0
+  UpperSizeTreshold: 0
+  FractureValue: 0
+  FractureMode: 0
 --- !u!1 &545879967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2092e3a266bd2044e8daa449111730b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2092e3a266bd2044e8daa449111730b4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1806,7 +1832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2092e3a266bd2044e8daa449111730b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.03
+      value: 15.19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2092e3a266bd2044e8daa449111730b4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2628,6 +2654,7 @@ MonoBehaviour:
   LowerSizeTreshold: 400
   UpperSizeTreshold: 20
   FractureValue: 20
+  FractureMode: 0
 --- !u!1 &1194557240
 GameObject:
   m_ObjectHideFlags: 0
