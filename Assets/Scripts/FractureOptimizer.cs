@@ -14,10 +14,12 @@ public class FractureOptimizer : MonoBehaviour
 
     private void Update()
     {
-        Renderer[] ChildrenRenderer = GetComponentsInChildren<Renderer>(true);
+        Renderer[] ChildrenRenderer = null;
+        ChildrenRenderer = GetComponentsInChildren<Renderer>(true);
         if (Changed)
         {
             ChildCount = ChildrenRenderer.Length;
+
             OnSliceCompleted(ChildrenRenderer);
             Changed = false;
         }
@@ -30,21 +32,31 @@ public class FractureOptimizer : MonoBehaviour
 
     void OnSliceCompleted(Renderer[] ChildrenRenderer)
     {
+        int i = 0;
+        int x = 0;
         foreach (var rend in ChildrenRenderer)
         {
+            
             Vector3 size = rend.bounds.size;
             float volume = size.x * size.y * size.z;
+
 
             if (volume <= OriginVolume / LowerSizeTreshold || !rend.gameObject.activeInHierarchy)
             {
                 Destroy(rend.gameObject);
             }
-
-            if (volume <= OriginVolume / UpperSizeTreshold)
+            else if (volume <= OriginVolume / UpperSizeTreshold)
             {
-                rend.gameObject.AddComponent<DeleteFracture>();
-                rend.gameObject.GetComponent<DeleteFracture>().FractureValue = FractureValue;
-                rend.gameObject.GetComponent<DeleteFracture>().Delay = new WaitForSeconds(UnityEngine.Random.Range(20f, 30.0f));
+                Debug.Log("Omg bruh");
+
+                if (rend.GetComponent<DeleteFracture>() != null) continue;
+                DeleteFracture DeleteScript = rend.gameObject.AddComponent<DeleteFracture>();
+                DeleteScript.FractureValue = FractureValue;
+                DeleteScript.Delay = new WaitForSeconds(UnityEngine.Random.Range(20f, 30.0f));
+            }
+            else
+            {
+                Debug.Log("Bleh");
             }
         }
     }

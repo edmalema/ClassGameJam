@@ -36,11 +36,11 @@ public class ApplySliceOptimization : MonoBehaviour
     void OnFractureCompleted()
     {
         GameObject FractureContainer = GameObject.Find(gameObject.name + "Fragments");
-        FractureContainer.AddComponent<FractureOptimizer>();
-        FractureContainer.GetComponent<FractureOptimizer>().OriginVolume = OriginVolume;
-        FractureContainer.GetComponent<FractureOptimizer>().LowerSizeTreshold = LowerSizeTreshold;
-        FractureContainer.GetComponent<FractureOptimizer>().UpperSizeTreshold = UpperSizeTreshold;
-        FractureContainer.GetComponent<FractureOptimizer>().FractureValue = FractureValue;
+        FractureOptimizer OptimizerComponent = FractureContainer.AddComponent<FractureOptimizer>();
+        OptimizerComponent.OriginVolume = OriginVolume;
+        OptimizerComponent.LowerSizeTreshold = LowerSizeTreshold;
+        OptimizerComponent.UpperSizeTreshold = UpperSizeTreshold;
+        OptimizerComponent.FractureValue = FractureValue;
     }
 
     void OnSliceCompleted()
